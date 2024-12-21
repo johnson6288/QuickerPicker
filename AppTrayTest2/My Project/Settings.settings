@@ -9,7 +9,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="TrayIcon" Type="System.String" Scope="User">
-      <Value Profile="(Default)">shortcut_ltblue</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="myIconPictureBox" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

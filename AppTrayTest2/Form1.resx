@@ -1139,10 +1139,6 @@
         AwMDAwMDAwMDg00XPT3/H7jE3s9IrRFkAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="Label5.Text" xml:space="preserve">
-    <value>© 2024 Matthew Johnson
-Quicker Picker was created as a solution for the missing custom toolbar from the Windows 11 taskbar. Use Quicker Picker to add shortcuts for applications, create quick access to documents, or use as a toolbar replacement. For security reasons, EXE and COM files are excluded. To use these file types, create shortcuts and place in your picker folder.</value>
-  </data>
   <data name="Label1.Text" xml:space="preserve">
     <value>Getting started:
 1. Choose the location of your files or shortcuts
@@ -1150,6 +1146,10 @@ Quicker Picker was created as a solution for the missing custom toolbar from the
 3. Configure Quicker Picker to be visible in your system tray
 4. To load at startup, make sure to run Quicker Picker as an administrator
 5. To use multiple pickers, copy the EXE file to a different folder, rename it, then move it back into the original folder</value>
+  </data>
+  <data name="Label5.Text" xml:space="preserve">
+    <value>© 2024 Matthew Johnson
+Quicker Picker was created as a solution for the missing custom toolbar from the Windows 11 taskbar. Use Quicker Picker to add shortcuts for applications, create quick access to documents, or use as a toolbar replacement. For security reasons, EXE and COM files are excluded. To use these file types, create shortcuts and place in your picker folder.</value>
   </data>
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>721, 17</value>

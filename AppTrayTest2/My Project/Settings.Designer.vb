@@ -80,7 +80,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("shortcut_ltblue")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property TrayIcon() As String
             Get
                 Return CType(Me("TrayIcon"),String)

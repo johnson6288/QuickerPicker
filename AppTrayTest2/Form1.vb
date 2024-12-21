@@ -234,6 +234,7 @@ Public Class frmMain
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.shortcut_magenta.GetHicon())
         My.Settings.Save()
         My.Settings.Reload()
+        MsgBox(My.Settings.TrayIcon)
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles picShortOrange.Click
