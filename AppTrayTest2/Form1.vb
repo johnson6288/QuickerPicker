@@ -78,7 +78,11 @@ Public Class frmMain
         NotifyIcon1.Visible = True
     End Sub
     Private Sub ToolMenuItem_Click(sender As Object, ByVal e As EventArgs)
-        Process.Start(myDir + sender.ToString)
+        Try
+            Process.Start(myDir + sender.ToString)
+        Catch
+            MsgBox("Unable to load the Picker. If you have deleted or renamed a file, a reload will be needed.", MsgBoxStyle.Critical, "Error")
+        End Try
     End Sub
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         If WindowState = FormWindowState.Minimized Then
@@ -164,13 +168,9 @@ Public Class frmMain
         End If
     End Sub
 
-
-
     Private Sub NotifyIcon1_MouseUp(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseUp
         'ContextMenuStrip1.Show(Cursor.Position.X, Cursor.Position.Y)
     End Sub
-
-
 
     Private Sub PictureBox6_Click(sender As Object, e As EventArgs) Handles picShortRed.Click
         myIcon.BackgroundImage = picShortRed.BackgroundImage
@@ -188,7 +188,6 @@ Public Class frmMain
         My.Settings.Save()
         My.Settings.Reload()
     End Sub
-
 
     Private Sub PictureBox12_Click(sender As Object, e As EventArgs) Handles picEnvLtBlue.Click
         myIcon.BackgroundImage = picEnvLtBlue.BackgroundImage
