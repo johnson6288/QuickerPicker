@@ -220,7 +220,7 @@ Public Class frmMain
 
     Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles picShortLtBlue.Click
         myIcon.BackgroundImage = picShortLtBlue.BackgroundImage
-        My.Settings.TrayIcon = "shortcut_ltblue.ico"
+        My.Settings.TrayIcon = "shortcut_ltblue"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.shortcut_ltblue.GetHicon())
         My.Settings.Save()
@@ -229,17 +229,16 @@ Public Class frmMain
 
     Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles picShortMagenta.Click
         myIcon.BackgroundImage = picShortMagenta.BackgroundImage
-        My.Settings.TrayIcon = "shortcut_magenta.ico"
+        My.Settings.TrayIcon = "shortcut_magenta"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.shortcut_magenta.GetHicon())
         My.Settings.Save()
         My.Settings.Reload()
-        MsgBox(My.Settings.TrayIcon)
     End Sub
 
     Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles picShortOrange.Click
         myIcon.BackgroundImage = picShortOrange.BackgroundImage
-        My.Settings.TrayIcon = "shortcut_orange.ico"
+        My.Settings.TrayIcon = "shortcut_orange"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.shortcut_orange.GetHicon())
         My.Settings.Save()
@@ -248,7 +247,7 @@ Public Class frmMain
 
     Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles picShortPink.Click
         myIcon.BackgroundImage = picShortPink.BackgroundImage
-        My.Settings.TrayIcon = "shortcut_pink.ico"
+        My.Settings.TrayIcon = "shortcut_pink"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.shortcut_pink.GetHicon())
         My.Settings.Save()
@@ -257,7 +256,7 @@ Public Class frmMain
 
     Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles picShortPurple.Click
         myIcon.BackgroundImage = picShortPurple.BackgroundImage
-        My.Settings.TrayIcon = "shortcut_purple.ico"
+        My.Settings.TrayIcon = "shortcut_purple"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.shortcut_purple.GetHicon())
         My.Settings.Save()
@@ -266,7 +265,7 @@ Public Class frmMain
 
     Private Sub PictureBox7_Click(sender As Object, e As EventArgs) Handles picShortYellow.Click
         myIcon.BackgroundImage = picShortYellow.BackgroundImage
-        My.Settings.TrayIcon = "shortcut_yellow.ico"
+        My.Settings.TrayIcon = "shortcut_yellow"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.shortcut_yellow.GetHicon())
         My.Settings.Save()
@@ -275,7 +274,7 @@ Public Class frmMain
 
     Private Sub PictureBox11_Click(sender As Object, e As EventArgs) Handles picEnvGreen.Click
         myIcon.BackgroundImage = picEnvGreen.BackgroundImage
-        My.Settings.TrayIcon = "env_green.ico"
+        My.Settings.TrayIcon = "env_green"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.env_green.GetHicon())
         My.Settings.Save()
@@ -284,7 +283,7 @@ Public Class frmMain
 
     Private Sub PictureBox13_Click(sender As Object, e As EventArgs) Handles picEnvMagenta.Click
         myIcon.BackgroundImage = picEnvMagenta.BackgroundImage
-        My.Settings.TrayIcon = "env_magenta.ico"
+        My.Settings.TrayIcon = "env_magenta"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.env_magenta.GetHicon())
         My.Settings.Save()
@@ -293,7 +292,7 @@ Public Class frmMain
 
     Private Sub PictureBox14_Click(sender As Object, e As EventArgs) Handles picEnvOrange.Click
         myIcon.BackgroundImage = picEnvOrange.BackgroundImage
-        My.Settings.TrayIcon = "env_orange.ico"
+        My.Settings.TrayIcon = "env_orange"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.env_orange.GetHicon())
         My.Settings.Save()
@@ -302,7 +301,7 @@ Public Class frmMain
 
     Private Sub PictureBox15_Click(sender As Object, e As EventArgs) Handles picEnvPink.Click
         myIcon.BackgroundImage = picEnvPink.BackgroundImage
-        My.Settings.TrayIcon = "env_pink.ico"
+        My.Settings.TrayIcon = "env_pink"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.env_pink.GetHicon())
         My.Settings.Save()
@@ -311,7 +310,7 @@ Public Class frmMain
 
     Private Sub PictureBox17_Click(sender As Object, e As EventArgs) Handles picEnvRed.Click
         myIcon.BackgroundImage = picEnvRed.BackgroundImage
-        My.Settings.TrayIcon = "env_red.ico"
+        My.Settings.TrayIcon = "env_red"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.env_red.GetHicon())
         My.Settings.Save()
@@ -320,7 +319,7 @@ Public Class frmMain
 
     Private Sub PictureBox18_Click(sender As Object, e As EventArgs) Handles picEnvYellow.Click
         myIcon.BackgroundImage = picEnvYellow.BackgroundImage
-        My.Settings.TrayIcon = "env_yellow.ico"
+        My.Settings.TrayIcon = "env_yellow"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.env_yellow.GetHicon())
         My.Settings.Save()
@@ -329,7 +328,7 @@ Public Class frmMain
 
     Private Sub PictureBox10_Click(sender As Object, e As EventArgs) Handles picEnvBlue.Click
         myIcon.BackgroundImage = picEnvBlue.BackgroundImage
-        My.Settings.TrayIcon = "env_blue.ico"
+        My.Settings.TrayIcon = "env_blue"
         My.Settings.myIconPictureBox = sender.name
         NotifyIcon1.Icon = Icon.FromHandle(My.Resources.env_blue.GetHicon())
         My.Settings.Save()
