@@ -1144,8 +1144,8 @@
 1. Choose the location of your files or shortcuts
 2. Customize your icon
 3. Configure Quicker Picker to be visible in your system tray
-4. To load at startup, make sure to run Quicker Picker as an administrator
-5. To use multiple pickers, copy the EXE file to a different folder, rename it, then move it back into the original folder</value>
+4. Choose to load at startup
+5. To use multiple pickers, copy the EXE file and rename it. It is best to choose a name that represents what it is being used for</value>
   </data>
   <data name="Label5.Text" xml:space="preserve">
     <value>© 2024 Matthew Johnson
@@ -1153,6 +1153,9 @@ Quicker Picker was created as a solution for the missing custom toolbar from the
   </data>
   <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>721, 17</value>
+  </metadata>
+  <metadata name="txtLocation.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

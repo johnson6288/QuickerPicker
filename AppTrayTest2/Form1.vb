@@ -8,6 +8,12 @@ Imports System.IO
 Imports System.Reflection
 'Imports QuickerPicker.My
 Public Class frmMain
+    ' Create boolean to disable checkbox actions until after they checked and initial value set
+    Private disableCheckBoxActions As Boolean = True
+    Public thisProgramName As String
+    ' Create the registry key object.
+    Public regKey As Object
+    'INPUT TEST 10/28/2025 2:53pm
     Public myDir = My.Settings.Directory
     Public okToExit As Boolean = False
     Private Sub LoadMenu()
@@ -33,17 +39,19 @@ Public Class frmMain
                 'MsgBox(i)
             End If
         Next
+
+
         txtLocation.Text = My.Settings.Directory
         'Dim newIcon As Icon
         'newIcon = My.Settings.TrayIcon
-        cbxStartupLoad.Checked = My.Settings.LoadAtStartUp
-        If My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator) Then
-            cbxStartupLoad.Enabled = True
-            ToolTip1.SetToolTip(cbxStartupLoad, "Must Run As Administrator")
-        Else
-            cbxStartupLoad.Enabled = False
-            ToolTip1.SetToolTip(cbxStartupLoad, "Must Run As Administrator")
-        End If
+
+        'If My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator) Then
+        '    cbxStartupLoad.Enabled = True
+        '    ToolTip1.SetToolTip(cbxStartupLoad, "Must Run As Administrator")
+        'Else
+        '    cbxStartupLoad.Enabled = False
+        '    ToolTip1.SetToolTip(cbxStartupLoad, "Must Run As Administrator")
+        'End If
         'MsgBox(My.Settings.TrayIcon)
         'NotifyIcon1.Icon = Icon.FromHandle(mystring())
         Dim resources = My.Resources.ResourceManager.GetResourceSet(Globalization.CultureInfo.CurrentCulture, True, True)
@@ -60,8 +68,30 @@ Public Class frmMain
         Next
     End Sub
     Public Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Visible = False
+        ShowInTaskbar = False
+        thisProgramName = Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location)
+        regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).GetValue("QP_" & thisProgramName)
+        'regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
+        'MsgBox(regKey)
+        'If My.Settings.Directory = "<undefined>" Then
+        '    Me.Show()
+        '    MsgBox("Please setup your desired folder",, "Initial Setup")
+        '    CmdChange_Click(Me, e)
+        'End If
+        'Check to see if the registry exists to load on startup and check the box if so
+        ' Check if it exists
+        If regKey Is Nothing Then
+            'MsgBox("Registry key not found.")
+            cbxStartupLoad.Checked = False
+        Else
+            'MsgBox("Registry key exists.")
+            cbxStartupLoad.Checked = True
+        End If
+        disableCheckBoxActions = False
 
         LoadMenu()
+
         'MsgBox(My.Settings.myIconPictureBox)
         'Loop through GroupBox2 controls to determine which picturebox matches the settings
         For Each cnt As Control In Me.GroupBox2.Controls
@@ -75,13 +105,14 @@ Public Class frmMain
             End If
         Next
 
+        NotifyIcon1.Text = thisProgramName
         NotifyIcon1.Visible = True
     End Sub
     Private Sub ToolMenuItem_Click(sender As Object, ByVal e As EventArgs)
         Try
             Process.Start(myDir + sender.ToString)
         Catch
-            MsgBox("Unable to load the Picker. If you have deleted or renamed a file, a reload will be needed.", MsgBoxStyle.Critical, "Error")
+            MsgBox("Unable to load the Picker item. If you have deleted or renamed a file, a reload will be needed.", MsgBoxStyle.Critical, "Error")
         End Try
     End Sub
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
@@ -89,7 +120,6 @@ Public Class frmMain
             Me.Hide()
         Else
             Me.Show()
-
         End If
     End Sub
     Private Sub Window_Closing(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
@@ -101,6 +131,7 @@ Public Class frmMain
 
 
     Private Sub NotifyIcon1_DoubleClick(sender As Object, e As EventArgs) Handles NotifyIcon1.DoubleClick
+        Me.Text = "About / Settings - " & thisProgramName
         Me.Show()
         Me.WindowState = FormWindowState.Normal
         Me.ShowInTaskbar = True
@@ -128,14 +159,15 @@ Public Class frmMain
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         okToExit = True
-        Me.Close()
+        'Me.Close()
+        Application.Exit()
     End Sub
 
     Private Sub CmdReload_Click(sender As Object, e As EventArgs) Handles cmdReload.Click
         ContextMenuStrip1.Items.Clear()
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem, Me.OpenFolderLocationToolStripMenuItem, Me.ToolStripSeparator1})
         LoadMenu()
-        MsgBox("The Picker Has Been Updated",, "Notice")
+        MsgBox("The Picker Has Been Updated", MsgBoxStyle.Information, "Notice")
     End Sub
 
     Private Sub OpenFolderLocationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenFolderLocationToolStripMenuItem.Click
@@ -143,28 +175,24 @@ Public Class frmMain
     End Sub
 
     Private Sub ReloadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReloadToolStripMenuItem.Click
-        cmdReload_Click(sender, e)
+        CmdReload_Click(sender, e)
     End Sub
 
     Private Sub CbxStartupLoad_CheckedChanged(sender As Object, e As EventArgs) Handles cbxStartupLoad.CheckedChanged
-        Dim thisProgramName As String
-        thisProgramName = Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location)
+        If disableCheckBoxActions Then Exit Sub
+        'MsgBox("Checked")
+        'Dim thisProgramName As String
+        'Dim regKey As Microsoft.Win32.RegistryKey
 
-        If My.User.IsInRole(ApplicationServices.BuiltInRole.Administrator) Then
-            Dim regKey As Microsoft.Win32.RegistryKey
-            regKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
-            If cbxStartupLoad.Checked = True Then
-                'MsgBox("true")
-                regKey.SetValue("QP_" & thisProgramName, Application.ExecutablePath)
-                regKey.Close()
-            Else
-                'MsgBox("False")
-                regKey.DeleteValue("QP_" & thisProgramName, False)
-                regKey.Close()
-            End If
+        regKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True)
+        If cbxStartupLoad.Checked = True Then
+            'MsgBox("true")
+            regKey.SetValue("QP_" & thisProgramName, Application.ExecutablePath)
+            regKey.Close()
         Else
-            cbxStartupLoad.Enabled = False
-            'MsgBox("You Must Run This Program As An Adminstrator To Use This Setting",, "Not Run As Administrator")
+            'MsgBox("False")
+            regKey.DeleteValue("QP_" & thisProgramName, False)
+            regKey.Close()
         End If
     End Sub
 
@@ -334,4 +362,43 @@ Public Class frmMain
         My.Settings.Reload()
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        thisProgramName = Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location)
+        'MsgBox(thisProgramName)
+        ' Create the registry key object.
+        Dim regKey As Object = Registry.CurrentUser.OpenSubKey("SOFTWARE\Microsoft\Windows\CurrentVersion\Run", True).GetValue("QP_" & thisProgramName)
+        'MsgBox("regKey= " & regKey)
+        ' Check if it exists
+        If regKey Is Nothing Then
+            MsgBox("Registry key not found.")
+        Else
+            MsgBox("Registry key exists.")
+        End If
+    End Sub
+
+    Private Sub NotifyIcon1_MouseClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseClick
+        ' Check if the left mouse button was clicked 
+        ' AND if the Shift key is currently held down
+        If e.Button = MouseButtons.Left AndAlso Control.ModifierKeys = Keys.Shift Then
+            ' Close the application cleanly
+            Application.Exit()
+        End If
+
+        ' Check if the left mouse button was clicked 
+        ' AND if the Ctrl key is currently held down
+        If e.Button = MouseButtons.Left AndAlso Control.ModifierKeys = Keys.Control Then
+            ' Run the reload code
+            CmdReload_Click(sender, e)
+        End If
+
+        ' Check if the left mouse button was clicked 
+        ' AND if the Alt key is currently held down
+        If e.Button = MouseButtons.Left AndAlso Control.ModifierKeys = Keys.Alt Then
+            ' Open the settings
+            Me.Show()
+            Me.WindowState = FormWindowState.Normal
+            Me.ShowInTaskbar = True
+        End If
+    End Sub
 End Class
