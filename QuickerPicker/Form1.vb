@@ -67,6 +67,12 @@ Public Class frmMain
             End If
         Next
     End Sub
+
+    Private Sub frmMain_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
+        Me.Hide()
+        Me.ShowInTaskbar = False
+    End Sub
+
     Public Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Visible = False
         ShowInTaskbar = False
@@ -399,6 +405,12 @@ Public Class frmMain
             Me.Show()
             Me.WindowState = FormWindowState.Normal
             Me.ShowInTaskbar = True
+        End If
+    End Sub
+
+    Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If e.CloseReason = CloseReason.WindowsShutDown Then
+            e.Cancel = False
         End If
     End Sub
 End Class
