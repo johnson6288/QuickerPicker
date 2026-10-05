@@ -16,12 +16,24 @@ Public Class frmMain
     'INPUT TEST 10/28/2025 2:53pm
     Public myDir = My.Settings.Directory
     Public okToExit As Boolean = False
+    Public unapprovedFiles As Boolean = False
     Private Sub LoadMenu()
         Dim i As Long = 0
+        unapprovedFiles = False
+
+
+        'Testing for future use of folders in the picker. It can either open the folder, or be a nested menu
+        'For Each folder As String In System.IO.Directory.GetDirectories(myDir)
+        'MsgBox(folder)
+        'Next
+
+
         For Each file As String In System.IO.Directory.GetFiles(myDir)
             'ComboBox1.Items.Add(System.IO.Path.GetFileName(file))
             If LCase(System.IO.Path.GetExtension(file)) = ".exe" Or LCase(System.IO.Path.GetExtension(file)) = ".com" Or LSet(System.IO.Path.GetFileNameWithoutExtension(file), 1) = "~" Then
-                'Do Nothing
+                unapprovedFiles = True
+
+
             Else
                 Dim tempName As New ToolStripMenuItem
                 tempName.Name = "mnuName" + i.ToString
@@ -88,7 +100,7 @@ Public Class frmMain
         'Check to see if the registry exists to load on startup and check the box if so
         ' Check if it exists
         If regKey Is Nothing Then
-            'MsgBox("Registry key not found.")
+            'MsgBox("Registry key Not found.")
             cbxStartupLoad.Checked = False
         Else
             'MsgBox("Registry key exists.")
@@ -118,7 +130,7 @@ Public Class frmMain
         Try
             Process.Start(myDir + sender.ToString)
         Catch
-            MsgBox("Unable to load the Picker item. If you have deleted or renamed a file, a reload will be needed.", MsgBoxStyle.Critical, "Error")
+            MsgBox("Unable to load the Picker item. If you have deleted Or renamed a file, a reload will be needed.", MsgBoxStyle.Critical, "Error")
         End Try
     End Sub
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
@@ -153,6 +165,14 @@ Public Class frmMain
             My.Settings.Save()
             'MsgBox("The Menu Will Now Reload",, "Location Updated")
             CmdReload_Click(sender, e)
+            If unapprovedFiles = True Then
+                MsgBox("Your Picker folder contains files that have been skipped for security reasons. " &
+                       "These could be applications or files that contain a .BAT or .EXE extension." & vbCrLf & vbCrLf &
+                       "If you wish to use these files in your Picker, it is recommended to set up a shortcut " &
+                       "and place it in the Picker folder.", vbCritical, "Security Notification")
+            End If
+
+
 
         End If
     End Sub

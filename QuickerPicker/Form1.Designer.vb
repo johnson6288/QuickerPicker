@@ -535,6 +535,7 @@ Partial Class frmMain
         Me.Button1.TabIndex = 11
         Me.Button1.Text = "Test Button"
         Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'txtLocation
         '
