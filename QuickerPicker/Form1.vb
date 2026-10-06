@@ -6,6 +6,7 @@ Imports Microsoft.Win32
 Imports System.Security.Principal
 Imports System.IO
 Imports System.Reflection
+Imports System.Runtime.Versioning
 'Imports QuickerPicker.My
 Public Class frmMain
     ' Create boolean to disable checkbox actions until after they checked and initial value set
@@ -21,13 +22,23 @@ Public Class frmMain
         Dim i As Long = 0
         unapprovedFiles = False
 
+        'Testing for future use of folders in the picker. It can either open the folder, or be a nested menu.
+        'NEED TO ADD OPTIONS FOR THIS
+        For Each folder As String In System.IO.Directory.GetDirectories(myDir)
+            'MsgBox(folder)
+            Dim tempName As New ToolStripMenuItem
+            tempName.Name = "mnuFName" + i.ToString
+            tempName.Text = (System.IO.Path.GetFileName(folder))
+            tempName.Image = My.Resources.folder.ToBitmap()
 
-        'Testing for future use of folders in the picker. It can either open the folder, or be a nested menu
-        'For Each folder As String In System.IO.Directory.GetDirectories(myDir)
-        'MsgBox(folder)
-        'Next
+            'MsgBox(tempName.Name)
+            AddHandler(tempName.Click), AddressOf ToolMenuItem_Click
+            'tempName.Enabled = True
+            ContextMenuStrip1.Items.Add(tempName)
+            i += 1
+        Next
 
-
+        i = 0
         For Each file As String In System.IO.Directory.GetFiles(myDir)
             'ComboBox1.Items.Add(System.IO.Path.GetFileName(file))
             If LCase(System.IO.Path.GetExtension(file)) = ".exe" Or LCase(System.IO.Path.GetExtension(file)) = ".com" Or LSet(System.IO.Path.GetFileNameWithoutExtension(file), 1) = "~" Then

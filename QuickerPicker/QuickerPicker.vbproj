@@ -197,6 +197,7 @@
     <None Include="Resources\env_red.ico" />
     <None Include="Resources\env_yellow.ico" />
     <None Include="Resources\env_ltblue.ico" />
+    <None Include="Resources\folder.ico" />
     <Content Include="Resources\icons8-email-50.png" />
   </ItemGroup>
   <ItemGroup>
