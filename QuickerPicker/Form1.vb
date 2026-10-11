@@ -41,7 +41,7 @@ Public Class frmMain
         i = 0
         For Each file As String In System.IO.Directory.GetFiles(myDir)
             'ComboBox1.Items.Add(System.IO.Path.GetFileName(file))
-            If LCase(System.IO.Path.GetExtension(file)) = ".exe" Or LCase(System.IO.Path.GetExtension(file)) = ".com" Or LSet(System.IO.Path.GetFileNameWithoutExtension(file), 1) = "~" Then
+            If LCase(System.IO.Path.GetExtension(file)) = ".exe" Or LCase(System.IO.Path.GetExtension(file)) = ".com" Or LCase(System.IO.Path.GetExtension(file)) = ".bat" Or LSet(System.IO.Path.GetFileNameWithoutExtension(file), 1) = "~" Then
                 unapprovedFiles = True
 
 
@@ -176,14 +176,6 @@ Public Class frmMain
             My.Settings.Save()
             'MsgBox("The Menu Will Now Reload",, "Location Updated")
             CmdReload_Click(sender, e)
-            If unapprovedFiles = True Then
-                MsgBox("Your Picker folder contains files that have been skipped for security reasons. " &
-                       "These could be applications or files that contain a .BAT or .EXE extension." & vbCrLf & vbCrLf &
-                       "If you wish to use these files in your Picker, it is recommended to set up a shortcut " &
-                       "and place it in the Picker folder.", vbCritical, "Security Notification")
-            End If
-
-
 
         End If
     End Sub
@@ -205,6 +197,12 @@ Public Class frmMain
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem, Me.OpenFolderLocationToolStripMenuItem, Me.ToolStripSeparator1})
         LoadMenu()
         MsgBox("The Picker Has Been Updated", MsgBoxStyle.Information, "Notice")
+        If unapprovedFiles = True Then
+            MsgBox("Your Picker folder contains files that have been skipped for security reasons. " &
+                   "These could be applications or files that contain a .BAT or .EXE extension." & vbCrLf & vbCrLf &
+                   "If you wish to use these files in your Picker, it is recommended to set up a shortcut " &
+                   "and place it in the Picker folder.", vbCritical, "Security Notification")
+        End If
     End Sub
 
     Private Sub OpenFolderLocationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenFolderLocationToolStripMenuItem.Click
